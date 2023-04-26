@@ -18,7 +18,7 @@ class CustomerListApiView(APIView):
         '''
         # todos = []
         # serializer = CustomerSerializer(todos, many=True)
-        data = pd.read_csv('''C:/Users/NGAN/Documents/GitHub/DW/btl_dw.csv''',header=0).drop(['loan_repaid'],axis=1)
+        data = pd.read_csv('''../model/btl_dw.csv''',header=0).drop(['loan_repaid'],axis=1)
         return Response(data.to_dict(orient='records'), status=status.HTTP_200_OK)
         # return Response({"msg":'This is DSS Pay loan'}, status=status.HTTP_200_OK)
 
@@ -26,7 +26,7 @@ class CustomerListApiView(APIView):
     # 1. Predict
     def post(self, request, *args, **kwargs):
         data = request.data
-        model = load_model('../full_data_project_model.h5')
+        model = load_model('../model/full_data_project_model.h5')
         x_test = pd.DataFrame(data=data)
         if len(data)<1:
             return Response('Can not predict', status=status.HTTP_500_INTERNAL_SERVER_ERROR)
